@@ -1,9 +1,9 @@
 import streamlit as st
 
 # Pengaturan halaman web
-st.set_page_config(page_title="Untuk Kamu, dari Hendi", page_icon="🌸", layout="centered")
+st.set_page_config(page_title="Mini Game untuk Ayang", page_icon="🎮", layout="centered")
 
-# Styling CSS: Estetik, santai, animasi bunga jatuh, & tombol ngambek yang dinamis
+# Styling CSS: Tema game romantis, estetik, & animasi kelopak bunga jatuh
 st.markdown(
     """
     <style>
@@ -20,7 +20,7 @@ st.markdown(
         color: #590d22;
         font-size: 18px;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.85);
+        background-color: rgba(255, 255, 255, 0.9);
         padding: 20px;
         border-radius: 20px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -50,98 +50,114 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Inisialisasi alur halaman & level tombol ngambek
-if 'tahap' not in st.session_state:
-    st.session_state.tahap = 0
-if 'tingkat_ngambek' not in st.session_state:
-    st.session_state.tingkat_ngambek = 0
+# Inisialisasi status game & tingkat ngambek
+if 'level' not in st.session_state:
+    st.session_state.level = 1
+if 'nyawa_ngambek' not in st.session_state:
+    st.session_state.nyawa_ngambek = 0
 
-# --- TAHAP 0: Pembuka Santai ---
-if st.session_state.tahap == 0:
-    st.markdown("### Mood: 0%")
+# --- LEVEL 1: Misi Membuka Game ---
+if st.session_state.level == 1:
+    st.markdown("### 🎮 Level 1: Misi Dimulai")
+    st.markdown("### Mood Ayang: 0%")
     st.progress(0)
     
-    st.markdown("# Hai Kamu... 🌷")
+    st.markdown("# Halo Sayang... 🌷")
     st.write("")
-    st.markdown("<p>Lagi senggang kan? Hendi cuma mau minta waktu sebentar aja buat nunjukin sesuatu ke kamu. Dibaca sampai selesai ya.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Selamat datang di mini game buatan Hendi khusus buat ayang! Misi pertama: apakah ayang siap mendengarkan penjelasan Hendi?</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Buka Pesan dari Hendi 🌸", use_container_width=True):
-        st.session_state.tahap = 1
+    if st.button("Siap, Mulai Game! 🚀", use_container_width=True):
+        st.session_state.level = 2
         st.rerun()
 
-# --- TAHAP 1: Pengakuan Jujur ---
-elif st.session_state.tahap == 1:
-    st.markdown("### Mood: 25%")
+# --- LEVEL 2: Tantangan Pengakuan (Pilih Alasan yang Benar) ---
+elif st.session_state.level == 2:
+    st.markdown("### 🎮 Level 2: Pertanyaan Kejujuran")
+    st.markdown("### Mood Ayang: 25%")
     st.progress(25)
     
-    st.markdown("# Maafin Hendi ya 🥺")
+    st.markdown("# Kenapa Hendi Bikin Game Ini? 🤔")
     st.write("")
-    st.markdown("<p>Hendi sadar akhir-akhir ini sering banget bikin kamu kesal atau overthinking. Hendi gak mau cari alasan, karena emang Hendi yang salah.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Pilih jawaban yang paling bener menurut ayang:</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Lanjut baca 🤍", use_container_width=True):
-        st.session_state.tahap = 2
+    if st.button("Karena Hendi mau minta maaf secara tulus 🥺", use_container_width=True):
+        st.session_state.level = 3
+        st.rerun()
+    if st.button("Karena Hendi gabut doang 😜", use_container_width=True):
+        st.warning("Eitss, bukan itu! Coba pilih jawaban yang lain ya sayang.")
+    if st.button("Karena Hendi kangen ayang 🤍", use_container_width=True):
+        st.session_state.level = 3
         st.rerun()
 
-# --- TAHAP 2: Pilihan Interaktif & Tombol Ngambek yang Menghindar ---
-elif st.session_state.tahap == 2:
-    st.markdown("### Mood: 50%")
+# --- LEVEL 3: Tantangan Tombol Menghindar (Ujian Ngambek) ---
+elif st.session_state.level == 3:
+    st.markdown("### 🎮 Level 3: Ujian Kesabaran")
+    st.markdown("### Mood Ayang: 50%")
     st.progress(50)
     
-    st.markdown("# Masih ngambek, ya? 🌷")
+    st.markdown("# Masih Ngambek Sama Hendi? 😤")
     st.write("")
     
-    # Pesan akan berubah-ubah makin melas kalau tombol ngambek ditekan terus
-    teks_gombal = [
-        "<p>Kata maaf emang gak langsung bikin semuanya balik normal begitu aja. Tapi Hendi bener-bener tulus pengen belajar jadi lebih baik buat kamu.</p>",
-        "<p>Eh, kok masih mau mencet tombol sebelah kanan terus sih? 🥺 Ayo dong dimaafin, gak boleh ngambek lama-lama!</p>",
-        "<p>Tombol 'Masih ngambek'-nya gak bisa ditekan buat nolak loh! 😜 Mending pencet tombol kiri yuk, cantik?</p>",
-        "<p>Udah dong ngambeknya, Hendi sedih nih kalau kamu cuekin terus... 😭❤️</p>"
+    pesan_rayuan = [
+        "<p>Hendi tahu akhir-akhir ini bikin ayang kesal. Tapi jangan ngambek terus dong, nanti cantiknya ilang lho! 🌸</p>",
+        "<p>Eh, tombol di atas masih dipencet juga? 🥺 Ayang mah suka usil nih, padahal Hendi udah melas banget.</p>",
+        "<p>Gak mempan ya tombol atasnya? 😜 Ayo ngaku, sebenarnya ayang udah mau dimaafin kan sama Hendi?</p>",
+        "<p>Udah dong ngambeknya sayang... Hendi janji bakal jadi lebih baik lagi buat ayang tercinta! ❤️</p>"
     ]
-    st.markdown(teks_gombal[min(st.session_state.tingkat_ngambek, 3)], unsafe_allow_html=True)
+    st.markdown(pesan_rayuan[min(st.session_state.nyawa_ngambek, 3)], unsafe_allow_html=True)
     st.write("")
     
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("Iya dimaafin kok 🌸", use_container_width=True):
-            st.session_state.tingkat_ngambek = 0
-            st.session_state.tahap = 3
-            st.rerun()
-    with col2:
-        # Teks tombol sebelah kanan akan berubah menolak ditekan dan menaikkan tingkat kemalasan teks
-        label_tombol = ["Hmm... masih agak kesal 😤", "Yakin nih masih kesal? 😜", "Eits, gak bisa dipencet! 🙈", "Pencet kiri aja plis! 🥺"]
-        current_label = label_tombol[min(st.session_state.tingkat_ngambek, 3)]
+    # Tombol atas (menghindar/menolak)
+    label_pilihan_atas = [
+        "Hmm... Masih agak kesal 😤", 
+        "Yakin nih masih mau kesal? 😜", 
+        "Eitss, tombol atas iseng ya! 🙈", 
+        "Pencet tombol bawah aja sayang plis! 🥺"
+    ]
+    current_text = label_pilihan_atas[min(st.session_state.nyawa_ngambek, 3)]
+    
+    if st.button(current_text, use_container_width=True):
+        st.session_state.nyawa_ngambek += 1
+        st.rerun()
         
-        if st.button(current_label, use_container_width=True):
-            st.session_state.tingkat_ngambek += 1
-            st.rerun()
-
-# --- TAHAP 3: Janji Hendi ---
-elif st.session_state.tahap == 3:
-    st.markdown("### Mood: 75%")
-    st.progress(75)
-    
-    st.markdown("# Makasih banyak ya... ✨")
-    st.write("")
-    st.markdown("<p>Hendi janji bakal pelan-pelan belajar buat ngertiin kamu lebih baik lagi, dan gak ngulangin kesalahan yang sama. Jangan senyum-senyum sendiri ya bacanya! Hehe.</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Satu tahap lagi 🌷", use_container_width=True):
-        st.session_state.tahap = 4
+    # Tombol bawah (jalan keluar game)
+    if st.button("Iya deh, dimaafin kok sayang ❤️🌸", use_container_width=True):
+        st.session_state.nyawa_ngambek = 0
+        st.session_state.level = 4
         st.rerun()
 
-# --- TAHAP 4: Penutup Manis ---
-elif st.session_state.tahap == 4:
-    st.markdown("### Mood: 100%")
+# --- LEVEL 4: Janji & Hadiah Game ---
+elif st.session_state.level == 4:
+    st.markdown("### 🎮 Level 4: Bonus Rahasia")
+    st.markdown("### Mood Ayang: 75%")
+    st.progress(75)
+    
+    st.markdown("# Yeay, Level Berhasil Dilewati! ✨")
+    st.write("")
+    st.markdown("<p>Hendi janji bakal pelan-pelan belajar buat ngertiin ayang lebih baik lagi, dan gak ngulangin kesalahan yang sama. Terima kasih ya sudah bertahan sampai level ini! Hehe.</p>", unsafe_allow_html=True)
+    st.write("")
+    
+    if st.button("Buka Hadiah Terakhir 🎁", use_container_width=True):
+        st.session_state.level = 5
+        st.rerun()
+
+# --- LEVEL 5: Menang Game (Selesai) ---
+elif st.session_state.level == 5:
+    st.balloons()
+    st.markdown("### 🏆 GAME COMPLETED!")
+    st.markdown("### Mood Ayang: 100% (Full Bahagia!)")
     st.progress(100)
     
-    st.markdown("# Yeay, Selesai! 🥰")
+    st.markdown("# You Win, Sayang! 🥰🎉")
     st.write("")
-    st.markdown("<p>Terima kasih ya sudah mau baca curhatan Hendi sampai habis. Semoga setelah ini harimu jauh lebih ceria lagi. Kiriman peluk hangat dari Hendi! 🤗🌸</p>", unsafe_allow_html=True)
+    st.markdown("<p>Terima kasih ya sayang sudah main game buatan Hendi dan mau memaafkan Hendi. Semoga hari-hari ayang selalu ceria dan bahagia terus. Kiriman peluk hangat dari Hendi buat ayang! 🤗🌸</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Ulangi dari awal 🔄", use_container_width=True):
-        st.session_state.tahap = 0
-        st.session_state.tingkat_ngambek = 0
+    if st.button("Mainkan Game dari Awal Lagi 🔄", use_container_width=True):
+        st.session_state.level = 1
+        st.session_state.nyawa_ngambek = 0
         st.rerun()
