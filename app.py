@@ -3,7 +3,7 @@ import streamlit as st
 # Pengaturan halaman web
 st.set_page_config(page_title="Untuk Kamu, dari Hendi", page_icon="🌸", layout="centered")
 
-# Styling CSS: Nuansa estetik, santai, dan animasi kelopak bunga jatuh
+# Styling CSS: Estetik, santai, animasi bunga jatuh, & tombol ngambek yang dinamis
 st.markdown(
     """
     <style>
@@ -50,13 +50,15 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Inisialisasi alur halaman
+# Inisialisasi alur halaman & level tombol ngambek
 if 'tahap' not in st.session_state:
     st.session_state.tahap = 0
+if 'tingkat_ngambek' not in st.session_state:
+    st.session_state.tingkat_ngambek = 0
 
 # --- TAHAP 0: Pembuka Santai ---
 if st.session_state.tahap == 0:
-    st.markdown("### Progress Suasana Hati: 0%")
+    st.markdown("### Mood: 0%")
     st.progress(0)
     
     st.markdown("# Hai Kamu... 🌷")
@@ -70,7 +72,7 @@ if st.session_state.tahap == 0:
 
 # --- TAHAP 1: Pengakuan Jujur ---
 elif st.session_state.tahap == 1:
-    st.markdown("### Progress Suasana Hati: 25%")
+    st.markdown("### Mood: 25%")
     st.progress(25)
     
     st.markdown("# Maafin Hendi ya 🥺")
@@ -82,29 +84,42 @@ elif st.session_state.tahap == 1:
         st.session_state.tahap = 2
         st.rerun()
 
-# --- TAHAP 2: Pilihan Interaktif ---
+# --- TAHAP 2: Pilihan Interaktif & Tombol Ngambek yang Menghindar ---
 elif st.session_state.tahap == 2:
-    st.markdown("### Progress Suasana Hati: 50%")
+    st.markdown("### Mood: 50%")
     st.progress(50)
     
     st.markdown("# Masih ngambek, ya? 🌷")
     st.write("")
-    st.markdown("<p>Kata maaf emang gak langsung bikin semuanya balik normal begitu aja. Tapi Hendi bener-bener tulus pengen belajar jadi lebih baik buat kamu.</p>", unsafe_allow_html=True)
+    
+    # Pesan akan berubah-ubah makin melas kalau tombol ngambek ditekan terus
+    teks_gombal = [
+        "<p>Kata maaf emang gak langsung bikin semuanya balik normal begitu aja. Tapi Hendi bener-bener tulus pengen belajar jadi lebih baik buat kamu.</p>",
+        "<p>Eh, kok masih mau mencet tombol sebelah kanan terus sih? 🥺 Ayo dong dimaafin, gak boleh ngambek lama-lama!</p>",
+        "<p>Tombol 'Masih ngambek'-nya gak bisa ditekan buat nolak loh! 😜 Mending pencet tombol kiri yuk, cantik?</p>",
+        "<p>Udah dong ngambeknya, Hendi sedih nih kalau kamu cuekin terus... 😭❤️</p>"
+    ]
+    st.markdown(teks_gombal[min(st.session_state.tingkat_ngambek, 3)], unsafe_allow_html=True)
     st.write("")
     
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Iya dimaafin kok 🌸", use_container_width=True):
+            st.session_state.tingkat_ngambek = 0
             st.session_state.tahap = 3
             st.rerun()
     with col2:
-        if st.button("Hmm... masih agak kesal 😤", use_container_width=True):
-            st.session_state.tahap = 2 # Tetap di halaman ini sampai dia luluh
+        # Teks tombol sebelah kanan akan berubah menolak ditekan dan menaikkan tingkat kemalasan teks
+        label_tombol = ["Hmm... masih agak kesal 😤", "Yakin nih masih kesal? 😜", "Eits, gak bisa dipencet! 🙈", "Pencet kiri aja plis! 🥺"]
+        current_label = label_tombol[min(st.session_state.tingkat_ngambek, 3)]
+        
+        if st.button(current_label, use_container_width=True):
+            st.session_state.tingkat_ngambek += 1
             st.rerun()
 
 # --- TAHAP 3: Janji Hendi ---
 elif st.session_state.tahap == 3:
-    st.markdown("### Progress Suasana Hati: 75%")
+    st.markdown("### Mood: 75%")
     st.progress(75)
     
     st.markdown("# Makasih banyak ya... ✨")
@@ -118,7 +133,7 @@ elif st.session_state.tahap == 3:
 
 # --- TAHAP 4: Penutup Manis ---
 elif st.session_state.tahap == 4:
-    st.markdown("### Progress Suasana Hati: 100%")
+    st.markdown("### Mood: 100%")
     st.progress(100)
     
     st.markdown("# Yeay, Selesai! 🥰")
@@ -128,4 +143,5 @@ elif st.session_state.tahap == 4:
     
     if st.button("Ulangi dari awal 🔄", use_container_width=True):
         st.session_state.tahap = 0
+        st.session_state.tingkat_ngambek = 0
         st.rerun()
