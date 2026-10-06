@@ -1,110 +1,131 @@
 import streamlit as st
 
 # Pengaturan halaman web
-st.set_page_config(page_title="Maafin Hendi Ya Sayang", page_icon="🥺", layout="centered")
+st.set_page_config(page_title="Untuk Kamu, dari Hendi", page_icon="🌸", layout="centered")
 
-# Styling CSS agar mirip tampilan modern & romantis
+# Styling CSS: Nuansa estetik, santai, dan animasi kelopak bunga jatuh
 st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+        background: linear-gradient(to bottom, #ffccd5, #ffe5ec);
+        overflow: hidden;
     }
     h1, h3 {
-        color: #fff;
+        color: #8b0000;
         text-align: center;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        font-family: 'Courier New', monospace;
     }
     p {
         color: #590d22;
         font-size: 18px;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.7);
-        padding: 15px;
-        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    
+    /* Animasi Kelopak Bunga Jatuh */
+    @keyframes fall {
+        0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
+        100% { transform: translateY(105vh) translateX(50px); opacity: 0; }
+    }
+    .flower {
+        position: fixed;
+        top: -10vh;
+        font-size: 24px;
+        animation: fall linear infinite;
+        z-index: 999;
     }
     </style>
+    
+    <!-- Elemen Bunga yang Bergerak Jatuh ke Bawah -->
+    <div class="flower" style="left: 10%; animation-duration: 7s;">🌸</div>
+    <div class="flower" style="left: 30%; animation-duration: 9s; animation-delay: 1s;">🌷</div>
+    <div class="flower" style="left: 50%; animation-duration: 6s; animation-delay: 2s;">🌸</div>
+    <div class="flower" style="left: 70%; animation-duration: 8s; animation-delay: 0.5s;">🌺</div>
+    <div class="flower" style="left: 90%; animation-duration: 10s; animation-delay: 3s;">🌸</div>
     """,
     unsafe_allow_html=True,
 )
 
-# Inisialisasi status halaman
+# Inisialisasi alur halaman
 if 'tahap' not in st.session_state:
     st.session_state.tahap = 0
 
-# --- TAHAP 0: Pembuka ---
+# --- TAHAP 0: Pembuka Santai ---
 if st.session_state.tahap == 0:
-    st.markdown("### Hati Kamu: 0%")
+    st.markdown("### Progress Suasana Hati: 0%")
     st.progress(0)
     
-    st.markdown("# Hi Sayang ❤️")
+    st.markdown("# Hai Kamu... 🌷")
     st.write("")
-    st.markdown("<p>Aku tahu akhir-akhir ini aku banyak bikin hati kecil kamu sedih. Aku cuma minta waktu sebentar buat baca ini.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Lagi senggang kan? Hendi cuma mau minta waktu sebentar aja buat nunjukin sesuatu ke kamu. Dibaca sampai selesai ya.</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Buka Surat 💌", use_container_width=True):
+    if st.button("Buka Pesan dari Hendi 🌸", use_container_width=True):
         st.session_state.tahap = 1
         st.rerun()
 
-# --- TAHAP 1: Pengakuan ---
+# --- TAHAP 1: Pengakuan Jujur ---
 elif st.session_state.tahap == 1:
-    st.markdown("### Hati Kamu: 25%")
+    st.markdown("### Progress Suasana Hati: 25%")
     st.progress(25)
     
-    st.markdown("# Maafin Hendi ya... 🥺")
+    st.markdown("# Maafin Hendi ya 🥺")
     st.write("")
-    st.markdown("<p>Aku sadar mungkin aku terlalu sering bikin kamu kecewa. Aku gak akan membela diri. Aku cuma mau ngaku kalau aku memang salah.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Hendi sadar akhir-akhir ini sering banget bikin kamu kesal atau overthinking. Hendi gak mau cari alasan, karena emang Hendi yang salah.</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Next 🤍", use_container_width=True):
+    if st.button("Lanjut baca 🤍", use_container_width=True):
         st.session_state.tahap = 2
         st.rerun()
 
-# --- TAHAP 2: Pertanyaan / Pilihan ---
+# --- TAHAP 2: Pilihan Interaktif ---
 elif st.session_state.tahap == 2:
-    st.markdown("### Hati Kamu: 50%")
+    st.markdown("### Progress Suasana Hati: 50%")
     st.progress(50)
     
-    st.markdown("# Masih Mau Lanjut? 💔")
+    st.markdown("# Masih ngambek, ya? 🌷")
     st.write("")
-    st.markdown("<p>Aku tahu kata maaf gak langsung menghilangkan rasa kecewa. Tapi aku benar-benar ingin berubah demi kamu.</p>", unsafe_allow_html=True)
+    st.markdown("<p>Kata maaf emang gak langsung bikin semuanya balik normal begitu aja. Tapi Hendi bener-bener tulus pengen belajar jadi lebih baik buat kamu.</p>", unsafe_allow_html=True)
     st.write("")
     
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Iya, Lanjut ❤️", use_container_width=True):
+        if st.button("Iya dimaafin kok 🌸", use_container_width=True):
             st.session_state.tahap = 3
             st.rerun()
     with col2:
-        if st.button("Masih Ngambek 😤", use_container_width=True):
-            st.session_state.tahap = 2 # Tetap di situ atau bisa dikustomisasi
+        if st.button("Hmm... masih agak kesal 😤", use_container_width=True):
+            st.session_state.tahap = 2 # Tetap di halaman ini sampai dia luluh
             st.rerun()
 
-# --- TAHAP 3: Janji & Harapan ---
+# --- TAHAP 3: Janji Hendi ---
 elif st.session_state.tahap == 3:
-    st.markdown("### Hati Kamu: 75%")
+    st.markdown("### Progress Suasana Hati: 75%")
     st.progress(75)
     
-    st.markdown("# Sayang... ✨")
+    st.markdown("# Makasih banyak ya... ✨")
     st.write("")
-    st.markdown("<p>Aku gak janji bakal langsung sempurna. Tapi aku janji bakal terus belajar supaya gak mengulang kesalahan yang sama. Semoga kamu masih mau kasih aku kesempatan. Aku sayang kamu. Selalu. ❤️</p>", unsafe_allow_html=True)
+    st.markdown("<p>Hendi janji bakal pelan-pelan belajar buat ngertiin kamu lebih baik lagi, dan gak ngulangin kesalahan yang sama. Jangan senyum-senyum sendiri ya bacanya! Hehe.</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Aku Janji Berubah 🤍", use_container_width=True):
+    if st.button("Satu tahap lagi 🌷", use_container_width=True):
         st.session_state.tahap = 4
         st.rerun()
 
-# --- TAHAP 4: Penutup / Sukses ---
+# --- TAHAP 4: Penutup Manis ---
 elif st.session_state.tahap == 4:
-    st.balloons()
-    st.markdown("### Hati Kamu: 100%")
+    st.markdown("### Progress Suasana Hati: 100%")
     st.progress(100)
     
-    st.markdown("# Terima Kasih Sayang! 🥰")
+    st.markdown("# Yeay, Selesai! 🥰")
     st.write("")
-    st.markdown("<p>Terima kasih sudah membaca semuanya. Semoga setelah ini kita bisa sama-sama memperbaiki semuanya. Peluk virtual dari Hendi! 🤗</p>", unsafe_allow_html=True)
+    st.markdown("<p>Terima kasih ya sudah mau baca curhatan Hendi sampai habis. Semoga setelah ini harimu jauh lebih ceria lagi. Kiriman peluk hangat dari Hendi! 🤗🌸</p>", unsafe_allow_html=True)
     st.write("")
     
-    if st.button("Ulangi dari Awal 🔄", use_container_width=True):
+    if st.button("Ulangi dari awal 🔄", use_container_width=True):
         st.session_state.tahap = 0
         st.rerun()
